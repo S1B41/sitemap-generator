@@ -80,7 +80,8 @@ public class SitemapGenerator {
 		if(inputStream == null) return;
 		
 		/*
-		 * If not add the URL into the set
+		 * If there is no error add the URL into the set
+		 * If it is already in the set return
 		 */
 		
 		if(!uniqueURLs.add(currentURL)) return;
