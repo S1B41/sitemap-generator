@@ -114,12 +114,6 @@ public class SitemapGenerator {
 		for(String extractedURL : document.extractURLs()) {
 			
 			/*
-			 *	Ignore extracting from the current page URL or from the home page again
-			 */
-			
-//			if(extractedURL.equals(currentURL) || extractedURL.equals(URL_ROOT)) continue;
-			
-			/*
 			 * 	Ignore not HTML files like .css, .js, images, or anything else
 			 */
 			
