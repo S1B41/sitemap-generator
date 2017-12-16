@@ -8,43 +8,43 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /*	
- * 	The Class:
- * 		Extracts all URLs from href attributes inside <a> tags in a HTML document
- * 		Performs operations on the extracted URL to ensure that the URL is correct and valid, otherwise it drops the URL
+ * The Class:
+ *  Extracts all URLs from href attributes inside <a> tags in a HTML document
+ *  Performs operations on the extracted URL to ensure that the URL is correct and valid, otherwise it drops the URL
  * 	
  * 
- * 	The Class:
- * 		Doesn't support keeping URL parameters or traversing pages through them
+ * The Class:
+ *  Doesn't support keeping URL parameters or traversing pages through them
  */
 
 class HTMLDocument {
 	
 	/*
-	 * 	The scheme and the host components of the URL 
+	 * The scheme and the host components of the URL 
 	 */
 	
 	private final String URL_ROOT;
 	
 	/*
-	 * 	The current URL that is being extracted
+	 * The current URL that is being extracted
 	 */
 	
 	private final String CURRENT_URL;
 	
 	/*
-	 * 	The path of the URL
+	 * The path of the URL
 	 */
 	
 	private final String URL_PATH;
 	
 	/*
-	 * 	The HTML document content
+	 * The HTML document content
 	 */
 	
 	private final String DOCUMENT;
 	
 	/*
-	 * 	The default index page names on the Internet
+	 * The default index page names on the Internet
 	 */
 	
 	private final String[] DEFAULT_INDEX_PAGE_NAMES = {
@@ -75,7 +75,7 @@ class HTMLDocument {
 	};
 	
 	/*
-	 * 	THe default extensions of HTML document
+	 * THe default extensions of HTML document
 	 */
 	
 	private final String[] DEFAULT_HTML_EXTENSIONS = {
@@ -91,13 +91,13 @@ class HTMLDocument {
 	};
 	
 	/*
-	 *	The unique URLs that found in the page
+	 * The unique URLs that found in the page
 	 */
 	
 	private Set<String> URLsSet = new HashSet<String>();
 	
 	/*
-	 * 	The constructor
+	 * The constructor
 	 */
 	
 	public HTMLDocument(String DOCUMENT, String CURRENT_URL) throws MalformedURLException {
@@ -115,14 +115,14 @@ class HTMLDocument {
 	public Set<String> extractURLs() {
 		
 		/*
-		 * 	The matched string
-		 * 	Used to trim and manipulate the matched string, also used for comparing
+		 * The matched string
+		 * Used to trim and manipulate the matched string, also used for comparing
 		 */
 		
 		String match;
 		
 		/*
-		 *  Pattern matches the HREF attribute
+		 * Pattern matches the HREF attribute
 		 */
 			
 		Pattern patternHref = Pattern.compile("\\s*(?i)href\\s*=\\s*(\"([^\"]*\")|'[^']*'|([^'\">\\s]+))");
@@ -132,38 +132,38 @@ class HTMLDocument {
 		while(matcherHref.find()) {
 			
 			/*
-			 * 	Store the matched string "the extracted href attribute" in match to make it easier to work on it
+			 * Store the matched string "the extracted href attribute" in match to make it easier to work on it
 			 */
 			
 			match = matcherHref.group().toLowerCase();
 			
 			/*
-			 *	Remove href= and the single or double quotes around the URL as well white spaces 
+			 * Remove href= and the single or double quotes around the URL as well white spaces 
 			 */
 			
 			match = match.replace("href=", "").replaceAll("'", "").replaceAll("\"", "").trim();
 			
 			/*
-			 * 	Don't add URL starting with double slashes
-			 * 	Don't add a link for sending email
+			 * Don't add URL starting with double slashes
+			 * Don't add a link for sending email
 			 */
 			
 			if(match.startsWith("//") || match.contains("mailto:")) continue;
 			
 			/*
-			 * 	Don't add any URL that directs to external websites
+			 * Don't add any URL that directs to external websites
 			 */
 			
 			if(match.contains("http") && !match.startsWith(CURRENT_URL)) continue;
 			
 			/*
-			 *	Don't add URL directs to the home page 
+			 * Don't add URL directs to the home page 
 			 */
 			
 			if(match.equals("/")) continue;
 			
 			/*
-			 * 	Remove dot-segments
+			 * Remove dot-segments
 			 */
 			
 			while(match.contains("../")) match = match.substring(0, match.indexOf("../")) + match.substring(match.indexOf("../")+3, match.length());
@@ -171,19 +171,19 @@ class HTMLDocument {
 			while(match.contains("./")) match = match.substring(0, match.indexOf("./")) + match.substring(match.indexOf("./")+2, match.length());
 			
 			/*
-			 * 	Remove any URL parameters
+			 * Remove any URL parameters
 			 */
 			
 			if(match.contains("?"))  match = match.substring(0, match.indexOf("?"));
 			
 			/*
-			 *	Remove tags from URL
+			 * Remove tags from URL
 			 */
 			
 			if(match.contains("#")) match = match.substring(0, match.indexOf("#"));
 			
 			/* 
-			 *  Remove default index page file from URL
+			 * Remove default index page file from URL
 			 */
 			
 			for(int i=0; i<DEFAULT_INDEX_PAGE_NAMES.length; i++) {
