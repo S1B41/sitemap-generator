@@ -22,7 +22,7 @@ class HTTPConnection {
 			HttpURLConnection httpConn;
 			
 			/*
-			 * 	Create the connection object
+			 * Create the connection object
 			 */
 			
 			switch (targetURL.getProtocol()) {
@@ -60,9 +60,9 @@ class HTTPConnection {
 			}
 			
 			/*
-			 * 	If the requested URL has moved,
-			 * 	or there are multiple choices
-			 * 	re-invoke the method with the new location
+			 * If the requested URL has moved,
+			 * or there are multiple choices
+			 * re-invoke the method with the new location
 			 */
 			
 			else if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
@@ -80,7 +80,7 @@ class HTTPConnection {
 			}
 			
 			/*
-			 * 	For any other response
+			 * For any other response
 			 */
 			
 			else return null;

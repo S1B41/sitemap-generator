@@ -15,38 +15,38 @@ public class SitemapGenerator {
 
 
 	/*
-	 *	The unique URLs of the website
+	 * The unique URLs of the website
 	 */
 	
 	private Set<String> uniqueURLs = new TreeSet<String>();
 	
 	/*
-	 * 	This set stores all the extracted URLs
-	 * 	used in if statement to prevent requesting the same URL again if the URL is found in other pages
+	 * This set stores all the extracted URLs
+	 * used in if statement to prevent requesting the same URL again if the URL is found in other pages
 	 */
 	
 	private Set<String> extURLs = new HashSet<>();
 	
 	/*
-	 *	The current URL that are being processed 
+	 * The current URL that are being processed 
 	 */
 	
 	private String currentURL;
 	
 	/*
-	 * 	The object that stores the HTML document and performs the extraction of the URLs from it
+	 * The object that stores the HTML document and performs the extraction of the URLs from it
 	 */
 	
 	private HTMLDocument document;
 	
 	/*
-	 * 	The constructor
+	 * The constructor
 	 */
 	
 	public SitemapGenerator(String URL_CURRENT) throws MalformedURLException {
 		
 		/*
-		 *	Remove the trailing slash if found and convert the string to lower case 
+		 * Remove the trailing slash if found and convert the string to lower case 
 		 */
 		
 		this.currentURL = URL_CURRENT.endsWith("/") ? URL_CURRENT.substring(0,URL_CURRENT.length()-1).toLowerCase() : URL_CURRENT.toLowerCase();
@@ -54,39 +54,39 @@ public class SitemapGenerator {
 	}
 	
 	/*
-	 * 	Create the site map
+	 * Create the site map
 	 */
 	
 	public void create() throws IOException {
 		
 		
 		/*
-		 * 	Create the connection object
-		 * 	which is responsible for making the HTTP request to the specified URL and getting the response
+		 * Create the connection object
+		 * which is responsible for making the HTTP request to the specified URL and getting the response
 		 */
 		
 		HTTPConnection httpConn = new HTTPConnection();
 		
 		/*
-		 * 	Get the response
+		 * Get the response
 		 */
 		
 		InputStream inputStream = httpConn.makeRequest(currentURL);
 		
 		/*
-		 * 	If there is an error
+		 * If there is an error
 		 */
 		
 		if(inputStream == null) return;
 		
 		/*
-		 *	 If not add the URL into the set
+		 * If not add the URL into the set
 		 */
 		
 		if(!uniqueURLs.add(currentURL)) return;
 		
 		/*
-		 * 	Then read the response
+		 * Then read the response
 		 */
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -100,45 +100,45 @@ public class SitemapGenerator {
 		reader.close();
 		
 		/*
-		 * 	Create HTMLDoc object
-		 * 	which is responsible for storing the HTML content, extracting URLs from it,
-		 * 	filtering the URLs and returning a set of valid unique URLs
+		 * Create HTMLDoc object
+		 * which is responsible for storing the HTML content, extracting URLs from it,
+		 * filtering the URLs and returning a set of valid unique URLs
 		 */
 		
 		document = new HTMLDocument(HTMLResponse.toString(), currentURL);
 		
 		/*
-		 * 	Extract the URLs in the page recursively using extractURLs method
+		 * Extract the URLs in the page recursively using extractURLs method
 		 */
 		
 		for(String extractedURL : document.extractURLs()) {
 			
 			/*
-			 * 	Ignore not HTML files like .css, .js, images, or anything else
+			 * Ignore not HTML files like .css, .js, images, or anything else
 			 */
 			
 			if(!isHTMLFile(extractedURL)) continue;
 			
 			/*
-			 * 	Ignore the URL if it is already added to extURLs set
+			 * Ignore the URL if it is already added to extURLs set
 			 */
 			
 			if(extURLs.contains(extractedURL)) continue;
 			
 			/*
-			 * 	Or add it if it is not yet added
+			 * Or add it if it is not yet added
 			 */
 			
 			else extURLs.add(extractedURL);
 			
 			/*
-			 *  Change the current URL to the new extracted one
+			 * Change the current URL to the new extracted one
 			 */
 			
 			currentURL = extractedURL;
 			
 			/*
-			 * 	Repeat the process
+			 * Repeat the process
 			 */
 			
 			create();
@@ -148,7 +148,7 @@ public class SitemapGenerator {
 	}
 	
 	/*
-	 *	Print the found URLs 
+	 * Print the found URLs 
 	 */
 	
 	public void print() {
@@ -158,7 +158,7 @@ public class SitemapGenerator {
 	}
 	
 	/*
-	 * 	Return the number of found URLs
+	 * Return the number of found URLs
 	 */
 	
 	public int getNumOfURLs() {
@@ -168,7 +168,7 @@ public class SitemapGenerator {
 	}
 	
 	/*
-	 * 	Check whether the path of the URL leads to a web page file
+	 * Check whether the path of the URL leads to a web page file
 	 */
 	
 	public boolean isHTMLFile(String url) {
@@ -184,8 +184,8 @@ public class SitemapGenerator {
 	}
 	
 	/*
-	 * 	Check whether the path of the URL leads to a directory
-	 * 	assumed that the path could be either a web page or directory
+	 * Check whether the path of the URL leads to a directory
+	 * assumed that the path could be either a web page or directory
 	 */
 	
 	public boolean isDirectory(String url) {
