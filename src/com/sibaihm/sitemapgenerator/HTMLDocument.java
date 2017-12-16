@@ -75,7 +75,7 @@ class HTMLDocument {
 	};
 	
 	/*
-	 * THe default extensions of HTML document
+	 * The default extensions of HTML document
 	 */
 	
 	private final String[] DEFAULT_HTML_EXTENSIONS = {
@@ -199,19 +199,19 @@ class HTMLDocument {
 			}
 			
 			/*
-			 *	Remove trailing slash to avoid adding two pages directing to the same page
-			 *	For example: http://example.com/about
-			 *				 http://example.com/about/
-			 *	will direct to the same page but will be stored in the Set separately because they don't match, thus duplicate URL
+			 * Remove trailing slash to avoid adding two pages directing to the same page
+			 * For example: http://example.com/about
+			 *			    http://example.com/about/
+			 * will direct to the same page but will be stored in the Set separately because they don't match, thus duplicate URL
 			 */
 			
 			if(match.endsWith("/")) match = match.substring(0, match.length()-1);
 			
 			/*
-			 *  Remove URL that directs to telephone number or JavaScript function or whatever else
-			 *  If the URL doesn't have any slash that could mean also it is a relative URL,
-			 *  thus is the check if the URL has one of the following special characters,
-			 *  which are not usual for a URL directs to a HTML document
+			 * Remove URL that directs to telephone number or JavaScript function or whatever else
+			 * If the URL doesn't have any slash that could mean also it is a relative URL,
+			 * thus is the check if the URL has one of the following special characters,
+			 * which are not usual for a URL directs to a HTML document
 			 */
 			
 			if(!match.contains("/")){
@@ -221,14 +221,14 @@ class HTMLDocument {
 			}
 			
 			/*
-			 * 	If now there are nothing left in the URL, ignore it,
-			 * 	otherwise we will get a URL to the home page in the following lines 
+			 * If now there are nothing left in the URL, ignore it,
+			 * otherwise we will get a URL to the home page in the following lines 
 			 */
 			
 			if(match.equals("")) continue;
 			
 			/*
-			 * 	If the URL is on the form of: http://example.com/path just add it to the set
+			 * If the URL is on the form of: http://example.com/path just add it to the set
 			 */
 			
 			if(match.startsWith(URL_ROOT)) {
@@ -238,8 +238,8 @@ class HTMLDocument {
 			}
 			
 			/*
-			 *  If not, ensure that it will be on the form of: http://example.com/path
-			 *  by converting the relative URL to an absolute one
+			 * If not, ensure that it will be on the form of: http://example.com/path
+			 * by converting the relative URL to an absolute one
 			 */
 			
 			else {
@@ -258,7 +258,7 @@ class HTMLDocument {
 	}
 	
 	/*
-	 * 	Remove the file name from the URL
+	 * Remove the file name from the URL
 	 */
 	
 	public String removeFile(String url) {
