@@ -8,11 +8,11 @@ import javax.net.ssl.HttpsURLConnection;
 
 class HTTPConnection {
 	
-	private final String USER_AGENT 		= "Mozilla/48.0";
+	private final String USER_AGENT = "Mozilla/48.0";
 	
-	private final String CONTENT_TYPE		= "application/x-www-form-urlencoded";
+	private final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 	
-	private final int CONNECTION_TIMEOUT 	= 2000;
+	private final int CONNECTION_TIMEOUT = 2000;
 	
 	public InputStream makeRequest(String url) {
 		
