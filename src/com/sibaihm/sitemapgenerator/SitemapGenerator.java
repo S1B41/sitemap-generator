@@ -15,7 +15,7 @@ public class SitemapGenerator {
 
 
 	/*
-	 * The unique URLs of the website
+	 * The unique URLs of the web site
 	 */
 	
 	private Set<String> uniqueURLs = new TreeSet<String>();

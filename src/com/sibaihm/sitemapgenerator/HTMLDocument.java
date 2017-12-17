@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /*	
  * The Class:
- *  Extracts all URLs from href attributes inside <a> tags in a HTML document
+ *  Extracts all URLs from HREF attributes inside <a> tags in a HTML document
  *  Performs operations on the extracted URL to ensure that the URL is correct and valid, otherwise it drops the URL
  * 	
  * 
@@ -131,7 +131,7 @@ class HTMLDocument {
 		while(matcherHref.find()) {
 			
 			/*
-			 * Store the matched string "the extracted href attribute" in match to make it easier to work on it
+			 * Store the matched string "the extracted HREF attribute" in match to make it easier to work on it
 			 */
 			
 			match = matcherHref.group().toLowerCase();
@@ -150,7 +150,7 @@ class HTMLDocument {
 			if(match.startsWith("//") || match.contains("mailto:")) continue;
 			
 			/*
-			 * Don't add any URL that directs to external websites
+			 * Don't add any URL that directs to external web sites
 			 */
 			
 			if(match.contains("http") && !match.startsWith(CURRENT_URL)) continue;
