@@ -26,16 +26,16 @@ class HTMLDocument {
 	private final String URL_ROOT;
 	
 	/*
-	 * The current URL that is being extracted
-	 */
-	
-	private final String CURRENT_URL;
-	
-	/*
 	 * The path of the URL
 	 */
 	
 	private final String URL_PATH;
+	
+	/*
+	 * The current URL that is being extracted
+	 */
+	
+	private final String CURRENT_URL;
 	
 	/*
 	 * The HTML document content
@@ -109,7 +109,6 @@ class HTMLDocument {
 		this.URL_ROOT 		= new URL(CURRENT_URL).getProtocol() + "://" + new URL(CURRENT_URL).getHost();
 		
 		this.URL_PATH 		= removeFile(new URL(CURRENT_URL).getPath());
-		
 	}
 
 	public Set<String> extractURLs() {
@@ -193,9 +192,7 @@ class HTMLDocument {
 					match = match.substring(0, match.indexOf(DEFAULT_INDEX_PAGE_NAMES[i]));
 					
 					break;
-					
 				}
-				
 			}
 			
 			/*
@@ -217,7 +214,6 @@ class HTMLDocument {
 			if(!match.contains("/")){
 				
 				if(match.contains(":") || match.contains(";") || match.contains("(") || match.contains(")") || match.matches(" ")) continue;
-				
 			}
 			
 			/*
@@ -234,7 +230,6 @@ class HTMLDocument {
 			if(match.startsWith(URL_ROOT)) {
 				
 				URLsSet.add(match);
-				
 			}
 			
 			/*
@@ -250,15 +245,12 @@ class HTMLDocument {
 				
 				URLsSet.add(match);
 			}
-			
 		}
-
 		return URLsSet;
-		
 	}
 	
 	/*
-	 * Remove the file name from the URL
+	 * Remove the file name - if exist - from the URL path
 	 */
 	
 	public String removeFile(String url) {
@@ -275,15 +267,16 @@ class HTMLDocument {
 					if(!splittedURL[j].equals("")) url += "/" + splittedURL[j];
 				}
 				
-				return url;
-				
-			}
-			
+				return url;	
+			}	
 		}
 		
 		return url;
-		
 	}
+	
+	/*
+	 * 	Return number of the URLs
+	 */
 	
 	public int getNumOfURLs() {
 		return URLsSet.size();
