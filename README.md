@@ -11,17 +11,17 @@ It returns all the found URLs of a given web site.
 * Clone the repository
 * Import the package to your project
 * Create a SitemapGenerator object passing the wanted URL
-´´´java
+```java
 SitemapGenerator sitemap = new SitemapGenerator("http://your-web-site.com");
-´´´
+```
 * Invoke the create method, it returns a string set
-´´´java
+```java
 sitemap.create();
-´´´
+```
 * You can print the results on the console by
-´´´java
+```java
 sitemap.print();
-´´´
+```
 ## TODO
 
 * Support URL query string
