@@ -275,7 +275,7 @@ class HTMLDocument {
 	}
 	
 	/*
-	 * 	Return number of the URLs
+	 * Return number of the URLs
 	 */
 	
 	public int getNumOfURLs() {
