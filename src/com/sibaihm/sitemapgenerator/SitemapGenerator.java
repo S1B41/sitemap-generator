@@ -50,14 +50,13 @@ public class SitemapGenerator {
 		 */
 		
 		this.currentURL = URL_CURRENT.endsWith("/") ? URL_CURRENT.substring(0,URL_CURRENT.length()-1).toLowerCase() : URL_CURRENT.toLowerCase();
-		
 	}
 	
 	/*
 	 * Create the site map
 	 */
 	
-	public void create() throws IOException {
+	public Set<String> create() throws IOException {
 		
 		
 		/*
@@ -77,14 +76,14 @@ public class SitemapGenerator {
 		 * If there is an error
 		 */
 		
-		if(inputStream == null) return;
+		if(inputStream == null) return null;
 		
 		/*
 		 * If there is no error add the URL into the set
 		 * If it is already in the set return
 		 */
 		
-		if(!uniqueURLs.add(currentURL)) return;
+		if(!uniqueURLs.add(currentURL)) return null;
 		
 		/*
 		 * Then read the response
@@ -143,9 +142,9 @@ public class SitemapGenerator {
 			 */
 			
 			create();
-				
 		}
 		
+		return uniqueURLs;
 	}
 	
 	/*
@@ -155,7 +154,6 @@ public class SitemapGenerator {
 	public void print() {
 		
 		for(String url : uniqueURLs) System.out.println(url);
-		
 	}
 	
 	/*
@@ -165,7 +163,6 @@ public class SitemapGenerator {
 	public int getNumOfURLs() {
 		
 		return uniqueURLs.size();
-		
 	}
 	
 	/*
@@ -181,7 +178,6 @@ public class SitemapGenerator {
 		if(matcherWebPageExt.find()) return false;
 		
 		return true;
-		
 	}
 	
 	/*
@@ -198,9 +194,7 @@ public class SitemapGenerator {
 		if(matcherWebPageExt.find()) return false;
 		
 		return true;
-		
 	}
-	
 }
 
 
