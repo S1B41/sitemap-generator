@@ -42,7 +42,6 @@ class HTTPConnection {
 			default:
 				
 				return null;
-				
 			}
 			
 			httpConn.setRequestProperty("Content-Type", CONTENT_TYPE);
@@ -56,7 +55,6 @@ class HTTPConnection {
 			if(responseCode == HttpURLConnection.HTTP_OK) {
 				
 				return httpConn.getInputStream();
-				
 			}
 			
 			/*
@@ -72,11 +70,9 @@ class HTTPConnection {
 				if(httpConn.getHeaderField("Location") != null) {
 					
 					makeRequest(httpConn.getHeaderField("Location"));
-					
 				}
 			    
 			    return null;
-			    
 			}
 			
 			/*
@@ -89,7 +85,6 @@ class HTTPConnection {
 		} catch (Exception e) {
 
 			return null;
-			
 		}
 	}
 }
