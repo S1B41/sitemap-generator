@@ -168,15 +168,10 @@ public class SitemapGenerator {
 	 */
 	
 	public void saveToFile() {
-		
 		try {
-			
 			final String DESKTOP_PATH = System.getProperty("user.home") + "\\Desktop\\";
-			
 			final String HOST_NAME = ROOT_URL.replace("http://", "").replace("https://", "");
-			
 			final String FILE_NAME = DESKTOP_PATH + HOST_NAME + ".txt";
-			
 			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
 			
 			for(String url : uniqueURLs) {
@@ -184,7 +179,6 @@ public class SitemapGenerator {
 				writer.newLine();
 			}
 			writer.close();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
