@@ -22,6 +22,11 @@ sitemap.create();
 ```java
 sitemap.print();
 ```
+* You can save the found URLs into a TXT file on desktop
+```java
+sitemap.saveToFile();
+```
+
 ## TODO
 
 * Support URL query string
