@@ -1,6 +1,9 @@
 package com.sibaihm.sitemapgenerator;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,7 +15,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SitemapGenerator {
-
 
 	/*
 	 * The unique URLs of the web site
@@ -26,6 +28,12 @@ public class SitemapGenerator {
 	 */
 	
 	private Set<String> extURLs = new HashSet<>();
+	
+	/*
+	 * The scheme and the host of the URL
+	 */
+	
+	private final String ROOT_URL;
 	
 	/*
 	 * The current URL that are being processed 
@@ -49,7 +57,7 @@ public class SitemapGenerator {
 		 * Remove the trailing slash if found and convert the string to lower case 
 		 */
 		
-		this.currentURL = URL_CURRENT.endsWith("/") ? URL_CURRENT.substring(0,URL_CURRENT.length()-1).toLowerCase() : URL_CURRENT.toLowerCase();
+		this.currentURL = ROOT_URL = URL_CURRENT.endsWith("/") ? URL_CURRENT.substring(0,URL_CURRENT.length()-1).toLowerCase() : URL_CURRENT.toLowerCase();
 	}
 	
 	/*
@@ -57,7 +65,6 @@ public class SitemapGenerator {
 	 */
 	
 	public Set<String> create() throws IOException {
-		
 		
 		/*
 		 * Create the connection object
@@ -157,6 +164,33 @@ public class SitemapGenerator {
 	}
 	
 	/*
+	 * Save the URLs into a file on desktop
+	 */
+	
+	public void saveToFile() {
+		
+		try {
+			
+			final String DESKTOP_PATH = System.getProperty("user.home") + "\\Desktop\\";
+			
+			final String HOST_NAME = ROOT_URL.replace("http://", "").replace("https://", "");
+			
+			final String FILE_NAME = DESKTOP_PATH + HOST_NAME + ".txt";
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
+			
+			for(String url : uniqueURLs) {
+				writer.write(url);
+				writer.newLine();
+			}
+			writer.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
 	 * Return the number of found URLs
 	 */
 	
@@ -169,7 +203,7 @@ public class SitemapGenerator {
 	 * Check whether the path of the URL leads to a web page file
 	 */
 	
-	public boolean isHTMLFile(String url) {
+	private boolean isHTMLFile(String url) {
 		
 		Pattern patternWebPageExt = Pattern.compile("(?i)\\.(?!html|htm|php|php3|php4|php5|asp)[a-z]{2,4}$");
 		
@@ -185,7 +219,7 @@ public class SitemapGenerator {
 	 * assumed that the path could be either a web page or directory
 	 */
 	
-	public boolean isDirectory(String url) {
+	private boolean isDirectory(String url) {
 		
 		Pattern patternWebPageExt = Pattern.compile("(?i)\\.(html|htm|php|php3|asp)$");
 		
