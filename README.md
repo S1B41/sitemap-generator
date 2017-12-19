@@ -1,6 +1,6 @@
 # sitemap-generator
 
-Generate a sitemap
+Generate a site map
 
 ## What can the sitemap-generator do?
 
